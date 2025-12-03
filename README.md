@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🌎 Travel Tracker for the United States
 
 ### Authors - Stewart Almeida, Theresa Coleman
@@ -220,3 +221,7 @@ Log in, edit name/email, confirm changes.
 Add at least one trip → confirm map highlights visited states.
 
 Refresh page — data should persist.
+=======
+# project3test
+testing project 3/4 useability
+>>>>>>> ddc4751d71db634a8039bdf2cf8f274bc6338a04
