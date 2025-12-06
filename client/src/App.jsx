@@ -22,8 +22,7 @@ export default function App() {
         <nav className="nav">
           <Link to="/">Home</Link>
           <Link to="/states">States</Link>
-          {user && <Link to="/visited">Visited</Link>}
-          {user && <Link to="/trip">My Trips</Link>}
+          {user && <Link to="/mytrips">My Trips</Link>}
           {!user && <Link to="/login">Login</Link>}
           {!user && <Link to="/register">Register</Link>}
           {user && <Link to="/account">Account</Link>}
@@ -72,32 +71,7 @@ export default function App() {
           <Route path="/states/:code" element={<StateDetail />} />
 
           <Route
-            path="/visited"
-            element={
-              <ProtectedRoute>
-                <Visited />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/visited"
-            element={
-              <ProtectedRoute>
-                <Visited />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/trip"
-            element={
-              <ProtectedRoute>
-                <Trip />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/trip"
+            path="/mytrips"
             element={
               <ProtectedRoute>
                 <Trip />

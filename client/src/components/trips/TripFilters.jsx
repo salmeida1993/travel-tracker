@@ -12,11 +12,9 @@ export default function TripFilters({
 }) {
   return (
     <div className="card p-3 mb-4">
-      <h5>Filter Trips</h5>
-
-      <div className="row">
+      <div className="row justify-content-between">
         {/* Sort Dropdown */}
-        <div className="col-md-4 mb-2">
+        <div className="col-md-3 mb-2">
           <label>Sort By</label>
           <select
             className="form-select"
@@ -32,7 +30,7 @@ export default function TripFilters({
         </div>
 
         {/* Max Expense Filter */}
-        <div className="col-md-4 mb-2">
+        <div className="col-md-3 mb-2">
           <label>Max Total Expense ($)</label>
           <input
             type="number"
@@ -44,7 +42,7 @@ export default function TripFilters({
         </div>
         
         {/* State Filter */}
-        <div className="col-md-4 mb-2">
+        <div className="col-md-3 mb-2">
           <label>Filter by State</label>
           <select
             className="form-select"
@@ -60,9 +58,8 @@ export default function TripFilters({
             ))}
           </select>
         </div>
-
         {/* Reset Button */}
-        <div className="col-md-4 mb-2 d-flex align-items-end">
+        <div className="col-md-3 mb-2 d-flex align-items-end justify-content-center">
           <Button variant="secondary" onClick={onReset}>
             Reset Filters
           </Button>

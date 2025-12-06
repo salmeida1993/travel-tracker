@@ -81,6 +81,7 @@ export default function TripFormModal({ show, onHide, onSave, initialData }) {
   };
 
   const removeLeg = (index) => {
+    if (!window.confirm("Remove this leg?")) return;
     setFormData((prev) => ({
       ...prev,
       legs: prev.legs.filter((_, i) => i !== index),
@@ -96,6 +97,14 @@ export default function TripFormModal({ show, onHide, onSave, initialData }) {
     }
     onHide();
   };
+
+  const tripDuration =
+    formData.startDate && formData.endDate
+      ? Math.ceil(
+          (new Date(formData.endDate) - new Date(formData.startDate)) /
+            (1000 * 60 * 60 * 24)
+        ) + 1
+      : 0;
 
   return (
     <Modal show={show} onHide={onHide} centered size="lg">
@@ -147,6 +156,7 @@ export default function TripFormModal({ show, onHide, onSave, initialData }) {
                   type="date"
                   name="endDate"
                   value={formData.endDate}
+                  min={formData.startDate}
                   onChange={handleChange}
                 />
               </Form.Group>
@@ -157,7 +167,7 @@ export default function TripFormModal({ show, onHide, onSave, initialData }) {
           <div className="mb-3">
             <div className="d-flex justify-content-between align-items-center mb-2">
               <Form.Label>Legs</Form.Label>
-              <Button variant="success" size="sm" onClick={handleAddLeg}>
+              <Button size="sm" onClick={handleAddLeg} className="btn-add-trip">
                 + Add Leg
               </Button>
             </div>
@@ -165,7 +175,7 @@ export default function TripFormModal({ show, onHide, onSave, initialData }) {
             {formData.legs.map((leg, index) => (
               <div key={index} className="border rounded p-2 mb-2 bg-light">
                 <Row>
-                  <Col md={5}>
+                  <Col md={4}>
                     <Form.Control
                       placeholder="City"
                       value={leg.city}
@@ -174,7 +184,7 @@ export default function TripFormModal({ show, onHide, onSave, initialData }) {
                       }
                     />
                   </Col>
-                  <Col md={5}>
+                  <Col md={4}>
                     <Form.Control
                       placeholder="State (e.g., TX)"
                       value={leg.state}
@@ -188,21 +198,26 @@ export default function TripFormModal({ show, onHide, onSave, initialData }) {
                       type="number"
                       placeholder="Days"
                       value={leg.days}
-                      onChange={(e) =>
-                        handleLegChange(index, "days", e.target.value)
-                      }
+                      min={0}
+                      max={tripDuration ?? undefined}
+                      onChange={(e) => {
+                        const days = e.target.value;
+                        if (tripDuration && days > tripDuration) return;
+                        handleLegChange(index, "days", days);
+                      }}
+                      disabled={!tripDuration} // Disable if tripDuration is not valid
                     />
                   </Col>
+                  <Col md={2}>
+                    <Button
+                      size="sm"
+                      variant="outline-danger"
+                      onClick={() => removeLeg(index)}
+                    >
+                      Remove
+                    </Button>
+                  </Col>
                 </Row>
-                <div className="text-end mt-2">
-                  <Button
-                    size="sm"
-                    variant="outline-danger"
-                    onClick={() => removeLeg(index)}
-                  >
-                    Remove
-                  </Button>
-                </div>
               </div>
             ))}
           </div>
@@ -211,7 +226,7 @@ export default function TripFormModal({ show, onHide, onSave, initialData }) {
           <h6 className="mt-4">Expenses</h6>
           <Row>
             {["transportation", "food", "lodging", "extra"].map((key) => (
-              <Col md={6} key={key} className="mb-2">
+              <Col md={3} key={key} className="mb-2">
                 <Form.Label className="text-capitalize">{key}</Form.Label>
                 <Form.Control
                   type="number"
@@ -238,10 +253,10 @@ export default function TripFormModal({ show, onHide, onSave, initialData }) {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={onHide}>
+          <Button variant="secondary" className="btn-delete" onClick={onHide}>
             Cancel
           </Button>
-          <Button type="submit" variant="primary">
+          <Button type="submit" variant="primary" className="btn-add-trip">
             Save Trip
           </Button>
         </Modal.Footer>

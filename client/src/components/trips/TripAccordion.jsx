@@ -14,29 +14,49 @@ export default function TripAccordion({ trips, onEdit, onDelete }) {
       {trips.map((trip, index) => (
         <Accordion.Item eventKey={trip._id} key={trip._id || index}>
           <Accordion.Header>
-            <strong>{trip.title}</strong>
-            <span className="text-muted ms-2">
-              ({trip.startDate} - {trip.endDate})
-            </span>
+            <Row className="w-100">
+              <Col className="align-items-center">
+                <h4>
+                  <strong>{trip.title}</strong>
+                </h4>
+              </Col>
+              <Col className="align-items-center text-center">
+                {trip.startDate} - {trip.endDate}
+              </Col>
+
+              <Col className="text-center">
+                {trip.legs && trip.legs.length > 0
+                  ? `${trip.legs.length} Leg${trip.legs.length > 1 ? "s" : ""}`
+                  : "No Legs"}
+              </Col>
+              <Col className="text-center">
+                {trip.expenses
+                  ? `$${Object.values(trip.expenses)
+                      .reduce((sum, val) => sum + val, 0)
+                      .toFixed(2)}`
+                  : "$0.00"}
+              </Col>
+            </Row>
           </Accordion.Header>
-          <Accordion.Body>
+          <Accordion.Body className="accordion-body">
+            <h5 className="mb-3">Description</h5>
             <p>{trip.description}</p>
 
             {/* Legs of the trip */}
             {trip.legs && trip.legs.length > 0 && (
               <>
                 <h5 className="mb-3">Legs</h5>
-                <Row xs={1} md={2} lg={4} className="g-3">
+                <Row xs={1} md={4} lg={5} className="g-4">
                   {trip.legs.map((leg, legIndex) => (
                     <Col key={leg._id || legIndex}>
-                      <Card className="accordion-card h-100">
-                        <Card.Body>
+                      <Card className="accordion-inner-cards">
+                        <Card.Body className="text-left">
                           <Card.Title>
-                            {leg.city}, {leg.state}
+                            <strong>
+                              {leg.city}, {leg.state}
+                            </strong>
                           </Card.Title>
-                          <Card.Text>
-                            <strong>Days:</strong> {leg.days}
-                          </Card.Text>
+                          <Card.Text>Days: {leg.days}</Card.Text>
                         </Card.Body>
                       </Card>
                     </Col>
@@ -48,28 +68,26 @@ export default function TripAccordion({ trips, onEdit, onDelete }) {
             {/* Expenses */}
             {trip.expenses && (
               <>
-                <h5 className="mt-4 mb-3">Expenses</h5>
-                <Row xs={1} md={2} lg={4} className="g-3">
+                <h5 className=" mb-3">Expenses</h5>
+                <Row xs={1} md={2} lg={5} className="g-3">
                   {Object.entries(trip.expenses).map(([key, value]) => (
                     <Col key={key}>
-                      <Card className="accordion-card h-100">
+                      <Card className="accordion-inner-cards">
                         <Card.Body>
                           <Card.Title className="text-capitalize">
-                            {key}
+                            <strong>{key}</strong>
                           </Card.Title>
                           <Card.Text>
-                            <strong>${Number(value).toFixed(2)}</strong>
+                            ${Number(value).toFixed(2)}
                           </Card.Text>
                         </Card.Body>
                       </Card>
                     </Col>
                   ))}
-                </Row>
-                <Row className="g-3 mt-1">
                   <Col>
-                    <Card className="accordion-card h-100">
-                      <Card.Body>
-                        <Card.Title>Total Expense</Card.Title>
+                    <Card className="accordion-inner-cards">
+                      <Card.Body className="accordion-total-expense-card">
+                        <Card.Title><strong>Total Expense</strong></Card.Title>
                         <Card.Text>
                           <strong>
                             $
@@ -105,7 +123,8 @@ export default function TripAccordion({ trips, onEdit, onDelete }) {
               >
                 Edit
               </Button>
-              <Button
+              <Button 
+                className="btn-delete"
                 variant="outline-danger"
                 size="sm"
                 onClick={() => onDelete(trip)}

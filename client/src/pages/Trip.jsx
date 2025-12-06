@@ -6,7 +6,6 @@ import TripAccordion from "../components/trips/TripAccordion.jsx";
 import TripStats from "../components/trips/TripStats.jsx";
 import TripFilters from "../components/trips/TripFilters.jsx";
 
-
 function getVisitedStates(trips) {
   const states = new Set();
   trips.forEach((trip) => {
@@ -48,7 +47,7 @@ export default function Trip() {
           return;
         }
         const data = await res.json();
-  
+
         setUserId(data.user._id);
       } catch (error) {
         console.error("Error fetching user ID:", error);
@@ -169,7 +168,7 @@ export default function Trip() {
 
   return (
     <div className="trip-page container my-4">
-      <h1 className="mb-4">My Trips</h1>
+      <h1 className="mb-4 display-1">My Trips</h1>
 
       {/* SVG Map Component */}
       <div className="mb-4">
@@ -179,18 +178,20 @@ export default function Trip() {
       {/* Trip Stats Component */}
       <TripStats trips={trips} visitedStates={visitedStates} />
 
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        {/* Button to open Trip Form Modal */}
-        <Button
-          className="btn btn-add-trip"
-          variant="primary"
-          onClick={() => {
-            setSelectedTrip(null);
-            setShowTripForm(true);
-          }}
-        >
-          + Add New Trip
-        </Button>
+      <div className="row mb-3 align-items-center">
+        <div className="col-md-6 mb-2 justify-content-center d-flex">
+          {/* Button to open Trip Form Modal */}
+          <Button
+            className="btn btn-add-trip w-50"
+            variant="primary"
+            onClick={() => {
+              setSelectedTrip(null);
+              setShowTripForm(true);
+            }}
+          >
+            + Add New Trip
+          </Button>
+        </div>
 
         {/* Trip Form Modal */}
         <TripFormModal
@@ -200,17 +201,19 @@ export default function Trip() {
           initialData={selectedTrip}
         />
 
-        {/* Trip Filters Component */}
-        <TripFilters
-          sortFilter={sortFilter}
-          maxExpense={maxExpense}
-          onSortChange={setSortFilter}
-          onMaxExpenseChange={setMaxExpense}
-          stateFilter={stateFilter}
-          states={visitedStates}
-          onStateFilterChange={setStateFilter}
-          onReset={resetFilters}
-        />
+        <div className="col-md-6 mb-2 text-md-left">
+          {/* Trip Filters Component */}
+          <TripFilters
+            sortFilter={sortFilter}
+            maxExpense={maxExpense}
+            onSortChange={setSortFilter}
+            onMaxExpenseChange={setMaxExpense}
+            stateFilter={stateFilter}
+            states={visitedStates}
+            onStateFilterChange={setStateFilter}
+            onReset={resetFilters}
+          />
+        </div>
       </div>
 
       {/* Trip Accordion Component */}
