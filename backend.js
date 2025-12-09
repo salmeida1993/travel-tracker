@@ -3,8 +3,8 @@ dotenv.config();
 
 import express from "express";
 import session from "express-session";
-import tripsRouter from "./routes/Trips.js";
-import authRouter from "./routes/Auth.js";
+import tripsRouter from "./routes/trips.js";
+import authRouter from "./routes/auth.js";
 import passport from "./config/passport.js";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
