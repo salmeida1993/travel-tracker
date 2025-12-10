@@ -187,9 +187,9 @@ Environment secrets are excluded from source control.
 
 ## 📸 Screenshots
 
-<img src="img/p3_1.PNG" alt="My trips" width="400" />
-<img src="img/p3_2.PNG" alt="States" width="400" />
-<img src="img/p3_3.PNG" alt="Add trip form" width="400" />
+<img src="img/p4_trips.PNG" alt="My trips page" width="400" />
+<img src="img/p4_modal.PNG" alt="Modal for adding a new trip" width="400" />
+<img src="img/p4_register.PNG" alt="Register page for a new account" width="400" />
 
 ## 🌐 Deployment
 

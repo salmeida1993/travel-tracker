@@ -1,10 +1,11 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import { Link, useNavigate } from "react-router-dom";
+ a0da99e3c2c1707d1cd618da5f57c326fdffe0ab
 
 function NavigationBar({ user, logout }) {
+  const navigate = useNavigate();
   return (
     <Navbar expand="md" className="navbar-theme">
       <Container>
@@ -24,21 +25,15 @@ function NavigationBar({ user, logout }) {
             )}
           </Nav>
           <Nav className="ms-auto nav-links">
+
+            {!user && <Nav.Link as={Link} to="/register">Register</Nav.Link>}
             {!user && (
-              <Nav.Link as={Link} to="/login">
+              <button className="linklike" onClick={() => navigate("/login")}>
                 Login
-              </Nav.Link>
+              </button>
             )}
-            {!user && (
-              <Nav.Link as={Link} to="/register">
-                Register
-              </Nav.Link>
-            )}
-            {user && (
-              <Nav.Link as={Link} to="/account">
-                Account
-              </Nav.Link>
-            )}
+            {user && <Nav.Link as={Link} to="/account">Account</Nav.Link>}
+            a0da99e3c2c1707d1cd618da5f57c326fdffe0ab
             {user && (
               <button onClick={logout} className="linklike">
                 Logout

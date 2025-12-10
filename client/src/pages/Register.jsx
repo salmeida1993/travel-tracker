@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -8,7 +9,9 @@ export default function Register() {
 
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [busy, setBusy] = useState(false);
-  const [error, setError] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
+a0da99e3c2c1707d1cd618da5f57c326fdffe0ab
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -29,15 +32,17 @@ export default function Register() {
 
   return (
     <div className="card" style={{ maxWidth: 480, margin: "2rem auto" }}>
-      <h2>Create account</h2>
 
-      {error && <p className="error">{error}</p>}
-
+      <h2>Create an account</h2>
+      {err && <p className="error">{err}</p>}
+ a0da99e3c2c1707d1cd618da5f57c326fdffe0ab
       <form onSubmit={onSubmit}>
-        <label>
-          Name
+        <label className="d-block mb-2">
+          Username
           <input
             type="text"
+
+            placeholder="newuser123"
             value={form.name}
             onChange={(e) =>
               setForm((prev) => ({ ...prev, name: e.target.value }))
@@ -46,10 +51,12 @@ export default function Register() {
           />
         </label>
 
-        <label>
+        <label className="d-block mb-2">
+        a0da99e3c2c1707d1cd618da5f57c326fdffe0ab
           Email
           <input
             type="email"
+            placeholder="name@example.com"
             value={form.email}
             onChange={(e) =>
               setForm((prev) => ({ ...prev, email: e.target.value }))
@@ -58,22 +65,36 @@ export default function Register() {
           />
         </label>
 
-        <label>
+        <label className="d-block mb-2">
           Password
-          <input
-            type="password"
-            value={form.password}
-            minLength={6}
-            onChange={(e) =>
-              setForm((prev) => ({ ...prev, password: e.target.value }))
-            }
-            required
-          />
+          <div style={{ position: "relative" }}>
+            <input
+              type={showPassword ? "text" : "password"}
+              aria-describedby="passwordHelpBlock"
+              value={form.password}
+              minLength={6}
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
+              required
+              style={{ paddingRight: "2rem" }}
+            />
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              style={{ position: "absolute", right: "0.5rem", top: "50%", transform: "translateY(-50%)", cursor: "pointer" }}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+          <div id="passwordHelpBlock" className=" mt-1 help">
+            Your password must be at least 6 characters long.
+          </div>
         </label>
-
-        <button disabled={busy} type="submit">
-          {busy ? "Creating…" : "Create account"}
-        </button>
+        <div className="mt-3">
+          <button disabled={busy} type="submit">
+            {busy ? "Creating…" : "Create account"}
+          </button>
+        </div>
+      a0da99e3c2c1707d1cd618da5f57c326fdffe0ab
       </form>
     </div>
   );

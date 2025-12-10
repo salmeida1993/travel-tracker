@@ -66,6 +66,11 @@ input,
   margin: 0;
 }
 
+.form-text {
+  font-size: 0.875rem;
+  color: var(--text);
+}
+
 .mytrips {
   font-weight: 1000;
 }
