@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function Login() {
   const nav = useNavigate();
   const { login, setErr, err } = useAuth();
   const [form, setForm] = useState({ email: "", password: "" });
   const [busy, setBusy] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +29,7 @@ export default function Login() {
       <h2>Log in</h2>
       {err && <p className="error">{err}</p>}
       <form onSubmit={onSubmit}>
-        <label>
+        <label className="d-block mb-2">
           Email
           <input
             type="email"
@@ -36,18 +38,38 @@ export default function Login() {
             required
           />
         </label>
-        <label>
+        <label className="d-block mb-2">
           Password
-          <input
-            type="password"
-            value={form.password}
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
-            required
-          />
+          <div style={{ position: "relative" }}>
+            <input
+              type={showPassword ? "text" : "password"}
+              aria-describedby="passwordHelpBlock"
+              value={form.password}
+              minLength={6}
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
+              required
+              style={{ paddingRight: "2rem" }}
+            />
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                position: "absolute",
+                right: "0.5rem",
+                top: "50%",
+                transform: "translateY(-50%)",
+                cursor: "pointer",
+              }}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
         </label>
-        <button disabled={busy} type="submit">
-          {busy ? "Signing in…" : "Log in"}
-        </button>
+        <div className="mt-3">
+          <button disabled={busy} type="submit">
+            {busy ? "Signing in…" : "Log in"}
+          </button>
+        </div>
       </form>
       <p className="help">
         New here? <Link to="/register">Create an account</Link>
