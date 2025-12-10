@@ -17,7 +17,7 @@ export default function Home() {
           <Link className="btn btn-lg primary" to="/states">Browse States</Link>
           {user ? (
             <>
-              <Link className="btn btn-lg" to="/trip">Track your trips</Link>
+              <Link className="btn btn-lg" to="/mytrip">Track your trips</Link>
             </>
           ) : (
             <>
