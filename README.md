@@ -1,4 +1,4 @@
-# 🌎 Travel Tracker for the United States
+# 🌎 Waypoint - Travel Tracker for the United States
 
 ### Authors - Stewart Almeida, Theresa Coleman
 
@@ -20,7 +20,7 @@ Instructor: John Alexis Guerra Gomez
 
 ## 🎯 Project Objective
 
-This project is a full-stack web application that lets users track their travels across the United States.
+Waypoint is a full-stack web application that lets users track their travels across the United States.
 Users can create an account, log trips they’ve taken, and view a color-coded U.S. map that highlights the states they’ve visited.
 
 Each user can:
@@ -43,7 +43,7 @@ Each user can:
 
 -- Database	MongoDB (using official driver, no Mongoose)
 
--- Libraries	react-simple-maps (for U.S. map), bcryptjs, jsonwebtoken
+-- Libraries	react-simple-maps (for U.S. map), bcryptjs, Passport
 
 -- Development Tools	Prettier (code formatting), ESLint (linting), GitHub, VS Code
 
@@ -95,10 +95,9 @@ trips
   "_id": ObjectId,
   "userId": String,
   "title": "Example Trip",
-  "description": "Example description",
   "startDate": ISODate,
   "endDate": ISODate,
-  "legs": [
+  "destinations": [
   { "_id": ObjectId, "state": "IL", "city": "Chicago", "days": 4, "latitude": null, "longitude": null, "createdAt": ISODate, "updatedAt": ISODate}
   ],
   "expenses": {
