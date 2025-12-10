@@ -10,9 +10,11 @@ Instructor: John Alexis Guerra Gomez
 
 [Public Deployment](https://waypoint-fscn.onrender.com)
 
+[Backup](https://waypoint-awva.onrender.com)
+
 ## 🎞️ Short Video Presentations
 
-[Stewart - My Trips](https://youtu.be/s2tTLCJJgww)
+[Stewart - My Trips](https://www.youtube.com/watch?v=bKirY0oreDU)
 
 [Theresa - User Account/State Pages](https://youtu.be/2mCPrRhkKbM)
 
@@ -84,7 +86,7 @@ users
   "_id": ObjectId,
   "name": "Theresa Coleman",
   "email": "theresa@example.com",
-  "pass": "hashed_password",
+  "passwordHash": "hashed_password",
   "createdAt": ISODate,
   "updatedAt": ISODate
 }
